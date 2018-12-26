@@ -58,3 +58,23 @@ class JsonCBV(View):
                }
           resp=json.dumps(emp_data)
           return HttpResponse(resp,content_type='application/json')
+
+    def put(self,request,*args,**kwargs):
+          emp_data={
+               'eno':6,
+               'ename':'hummy',
+               'esal':50000,
+               'eaddr':'U.P'
+               }
+          resp=json.dumps(emp_data)
+          return HttpResponse(resp,content_type='application/json')
+
+    def delete(self,request,*args,**kwargs):
+          emp_data={
+               'eno':7,
+               'ename':'lummy',
+               'esal':40000,
+               'eaddr':'U.P'
+               }
+          resp=json.dumps(emp_data)
+          return HttpResponse(resp,content_type='application/json')
