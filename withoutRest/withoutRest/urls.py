@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^api/',views.Emp_data_view,name="Emp_data_view"),
     url(r'^jsonapi/',views.Json_data_view,name="Json_data_view"),
     url(r'^jsonapi2/',views.Json_data_view2,name="Json_data_view2"),
+    url(r'^jsoncbv/',views.JsonCBV.as_view(),name="JsonCBV"),
 ]

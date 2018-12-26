@@ -35,3 +35,16 @@ def Json_data_view2(request):
                'eaddr':'U.P'
              }
     return JsonResponse(emp_data)
+
+
+from django.views.generic import View
+class JsonCBV(View):
+    def get(self,request,*args,**kwargs):
+          emp_data={
+               'eno':4,
+               'ename':'Rummy',
+               'esal':70000,
+               'eaddr':'U.P'
+               }
+          resp=json.dumps(emp_data)
+          return HttpResponse(resp,content_type='application/json')
