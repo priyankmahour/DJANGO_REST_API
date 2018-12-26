@@ -6,29 +6,25 @@ from testapp.models import Employee
 from django.views.generic import View
 from django.core.serializers import serialize
 
-class EmployeeDetailBCBV(View):
+from testapp.mixins import SerializeMixin,HttpResponseMixin
+
+class EmployeeDetailBCBV(HttpResponseMixin,SerializeMixin,View):
     def get(self,request,id,*args,**kwargs):
-       emp=Employee.objects.get(id=id)
-       '''emp_data={
-               'eno':emp.eno,
-               'ename':emp.ename,
-               'esal':emp.esal,
-               'eaddr':emp.eaddr
-             }
-       resp=json.dumps(emp_data)'''
-       resp=serialize('json',[emp,],fields=('eno','ename','eaddr'))
-       return HttpResponse(resp,content_type='application/json')
+      try:
+          emp=Employee.objects.get(id=id)
+      except Employee.DoesNotExist:
+           resp=json.dumps({'msg':'Requested Page Not Found'})
+           #return HttpResponse(resp,content_type='application/json',status=404)
+           return self.render_to_http_response(resp,status=404)
+      else:
+          resp=self.myserialize([emp,])
+          #return HttpResponse(resp,content_type='application/json',status=200)
+          return self.render_to_http_response(resp)
 
 
-
-class EmployeeListCBV(View):
+class EmployeeListCBV(HttpResponseMixin,SerializeMixin,View):
     def get(self,request,*args,**kwargs):
        qs=Employee.objects.all()
-       resp=serialize('json',qs,fields=('eno','ename','eaddr'))
-       p_data=json.loads(resp)
-       final_list=[]
-       for obj in p_data:
-           emp_data=obj['fields']
-           final_list.append(emp_data)
-       resp=json.dumps(final_list)
-       return HttpResponse(resp,content_type='application/json')
+       resp=self.myserialize(qs)
+       #return HttpResponse(resp,content_type='application/json')
+       return self.render_to_http_response(resp)
