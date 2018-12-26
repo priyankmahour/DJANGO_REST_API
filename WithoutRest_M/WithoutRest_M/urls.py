@@ -18,5 +18,5 @@ from django.contrib import admin
 from testapp import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'api/',views.EmployeeDetailBCBV.as_view(),name="EmployeeDetailBCBV"),
+    url(r'api/(?P<id>\d+)/$',views.EmployeeDetailBCBV.as_view(),name="EmployeeDetailBCBV"),
 ]

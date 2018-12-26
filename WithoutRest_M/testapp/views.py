@@ -5,8 +5,8 @@ import json
 from testapp.models import Employee
 from django.views.generic import View
 class EmployeeDetailBCBV(View):
-    def get(self,request,*args,**kwargs):
-       emp=Employee.objects.get(id=1)
+    def get(self,request,id,*args,**kwargs):
+       emp=Employee.objects.get(id=id)
        emp_data={
                'eno':emp.eno,
                'ename':emp.ename,
