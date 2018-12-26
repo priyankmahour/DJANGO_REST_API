@@ -37,8 +37,15 @@ def Json_data_view2(request):
     return JsonResponse(emp_data)
 
 
+
+
+
+#CLASS BASED VIEW
+
+from testapp.mixins import HttpResponseMixin
+
 from django.views.generic import View
-class JsonCBV(View):
+class JsonCBV(HttpResponseMixin,View):
     def get(self,request,*args,**kwargs):
           emp_data={
                'eno':4,
@@ -47,7 +54,7 @@ class JsonCBV(View):
                'eaddr':'U.P'
                }
           resp=json.dumps(emp_data)
-          return HttpResponse(resp,content_type='application/json')
+          return self.render_to_http_response(resp)
 
     def post(self,request,*args,**kwargs):
           emp_data={
@@ -57,7 +64,7 @@ class JsonCBV(View):
                'eaddr':'U.P'
                }
           resp=json.dumps(emp_data)
-          return HttpResponse(resp,content_type='application/json')
+          return self.render_to_http_response(resp)
 
     def put(self,request,*args,**kwargs):
           emp_data={
@@ -67,7 +74,7 @@ class JsonCBV(View):
                'eaddr':'U.P'
                }
           resp=json.dumps(emp_data)
-          return HttpResponse(resp,content_type='application/json')
+          return self.render_to_http_response(resp)
 
     def delete(self,request,*args,**kwargs):
           emp_data={
@@ -77,4 +84,4 @@ class JsonCBV(View):
                'eaddr':'U.P'
                }
           resp=json.dumps(emp_data)
-          return HttpResponse(resp,content_type='application/json')
+          return self.render_to_http_response(resp)
