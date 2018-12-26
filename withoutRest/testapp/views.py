@@ -48,3 +48,13 @@ class JsonCBV(View):
                }
           resp=json.dumps(emp_data)
           return HttpResponse(resp,content_type='application/json')
+
+    def post(self,request,*args,**kwargs):
+          emp_data={
+               'eno':5,
+               'ename':'Gummy',
+               'esal':60000,
+               'eaddr':'U.P'
+               }
+          resp=json.dumps(emp_data)
+          return HttpResponse(resp,content_type='application/json')
