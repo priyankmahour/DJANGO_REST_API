@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
+
 import json
 from testapp.models import Employee
 from django.views.generic import View
 from django.core.serializers import serialize
-from testapp.utils import is_json
+from testapp.utils import is_json,get_emp_by_id
 from testapp.forms import EmployeeForm
 
 from testapp.mixins import SerializeMixin,HttpResponseMixin
@@ -13,7 +14,7 @@ from testapp.mixins import SerializeMixin,HttpResponseMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
-
+@method_decorator(csrf_exempt,name='dispatch')
 class EmployeeDetailBCBV(HttpResponseMixin,SerializeMixin,View):
     def get(self,request,id,*args,**kwargs):
       try:
@@ -26,6 +27,35 @@ class EmployeeDetailBCBV(HttpResponseMixin,SerializeMixin,View):
           resp=self.myserialize([emp,])
           #return HttpResponse(resp,content_type='application/json',status=200)
           return self.render_to_http_response(resp)
+
+    def put(self,request,id,*args,**kwargs):
+        emp=get_emp_by_id(id)
+        if emp is None:
+            resp=json.dumps({'msg':'No Matched Resource Found, Updation Not Possible'})
+            return self.render_to_http_response(resp,status=400)
+        data=request.body
+        valid_json=is_json(data)
+        if not valid_json:
+            resp=json.dumps({'msg':'please Provide valid JSON data'})
+            return self.render_to_http_response(resp,status=400)
+        provided_data=json.loads(data)
+        original_data={
+                         'eno':emp.eno,
+                         'ename':emp.ename,
+                         'esal':emp.esal,
+                         'eaddr':emp.eaddr
+                      }
+        original_data.update(provided_data)
+        form=EmployeeForm(data=original_data,instance=emp)
+        if form.is_valid():
+            form.save(commit=True)
+            resp=json.dumps({'msg':'Record Updated Successfully'})
+            return self.render_to_http_response(resp)
+        if form.errors:
+            resp=json.dumps(form.errors)
+            return self.render_to_http_response(resp,status=400)
+
+
 
 @method_decorator(csrf_exempt,name='dispatch')
 class EmployeeListCBV(HttpResponseMixin,SerializeMixin,View):

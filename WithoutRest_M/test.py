@@ -28,4 +28,15 @@ def create_resource():
     resp=requests.post(BASE_URL+ENDPOINT,data=json.dumps(new_emp))
     print(resp.status_code)
     print(resp.json())
-create_resource()
+#create_resource()
+
+
+def update_resource(id):
+    new_emp={
+               'ename':'kunny',
+               'esal':1900
+            }
+    resp=requests.put(BASE_URL+ENDPOINT+str(id)+'/',data=json.dumps(new_emp))
+    print(resp.status_code)
+    print(resp.json())
+update_resource(8)
