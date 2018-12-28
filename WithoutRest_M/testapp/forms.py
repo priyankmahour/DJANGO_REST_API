@@ -5,7 +5,7 @@ class EmployeeForm(forms.ModelForm):
     def clean_esal(self):
         input_sal=self.cleaned_data['esal']
         if input_sal<1000:
-            raise forms.ValidationError(" the minimum salary should br 2000 .")
+            raise forms.ValidationError(" the minimum salary should br 1000 .")
         return input_sal
     class Meta:
         model=Employee

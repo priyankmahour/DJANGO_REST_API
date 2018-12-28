@@ -56,6 +56,19 @@ class EmployeeDetailBCBV(HttpResponseMixin,SerializeMixin,View):
             return self.render_to_http_response(resp,status=400)
 
 
+    def delete(self,request,id,*args,**kwargs):
+        emp=get_emp_by_id(id)
+        if emp is None:
+            resp=json.dumps({'msg':'No Matched Resource Found, Updation Not Possible'})
+            return self.render_to_http_response(resp,status=400)
+        status,deleted_item=emp.delete()
+        if status==1:
+            resp=json.dumps({'msg':'Resource Deleted Successfully'})
+            return self.render_to_http_response(resp)
+        resp=json.dumps({'msg':'Some Error Occured , Unable To Delete Resource'})
+        return render_to_http_response(resp,status=500)
+
+
 
 @method_decorator(csrf_exempt,name='dispatch')
 class EmployeeListCBV(HttpResponseMixin,SerializeMixin,View):
