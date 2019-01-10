@@ -11,6 +11,8 @@ from testapp.mixins import HttpResponseMixin,SerializeMixin
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from testapp.forms import StudentForm
+
 
 @method_decorator(csrf_exempt,name='dispatch')
 class StudentCRUD_CBV(View,HttpResponseMixin,SerializeMixin):
@@ -32,3 +34,20 @@ class StudentCRUD_CBV(View,HttpResponseMixin,SerializeMixin):
             qs=Student.objects.all()
             resp=self.myserialize(qs)
             return self.render_to_http_response(resp,status=200)
+
+
+    def post(self,request,*args,**kwargs):
+        data=request.body
+        valid_json=is_json(data)
+        if not valid_json:
+            resp=json.dumps({'msg':'Kindly Prois=de Valid JSON Data    Thank YOU !!1'})
+            return self.render_to_http_response(resp,status=400)
+        pdata=json.loads(data)
+        form=StudentForm(pdata)
+        if form.is_valid():
+            form.save(commit=True)
+            resp=json.dumps({'msg':'Resourse Created.'})
+            return self.render_to_http_response(resp,status=200)
+        if form.errors:
+            resp=json.dumps(form.errors)
+            return self.render_to_http_response(resp,status=400)
