@@ -27,4 +27,17 @@ def create_resourse():
     print(resp.status_code)
     print(resp.json())
 
-create_resourse()
+#create_resourse()
+
+
+
+def update_resourse(id=None):
+    data={  'id':id,
+            'marks':70,
+            'age':27
+         }
+    resp=requests.put(BASE_URL+ENDPOINT,data=json.dumps(data))
+    print(resp.status_code)
+    print(resp.json())
+
+update_resourse(5) # id is mandatory

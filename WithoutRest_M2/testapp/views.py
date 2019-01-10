@@ -51,3 +51,37 @@ class StudentCRUD_CBV(View,HttpResponseMixin,SerializeMixin):
         if form.errors:
             resp=json.dumps(form.errors)
             return self.render_to_http_response(resp,status=400)
+
+
+
+    def put(self,request,*args,**kwargs):
+        data=request.body
+        valid_json=is_json(data)
+        if not valid_json:
+            resp=json.dumps({'msg':'Kindly Provide Valid JSON Data    Thank YOU !!1'})
+            return self.render_to_http_response(resp,status=400)
+        pdata=json.loads(data)
+        id=pdata.get('id',None)
+        if id is None:
+            resp=json.dumps({'msg':'ID is MANDATORY For Updation !!!'})
+            return self.render_to_http_response(resp,status=400)
+        temp=get_std_by_id(id)
+        if temp is None:
+            resp=json.dumps({'msg':'No Matched Record Found'})
+            return self.render_to_http_response(resp,status=400)
+        original_data={
+                        'rno':temp.rno,
+                        'name':temp.name,
+                        'marks':temp.marks,
+                        'age':temp.age
+                      }
+
+        original_data.update(pdata)
+        form=StudentForm(original_data,instance=temp)
+        if form.is_valid():
+            form.save(commit=True)
+            resp=json.dumps({'msg':'Resourse Updated.'})
+            return self.render_to_http_response(resp,status=200)
+        if form.errors:
+            resp=json.dumps(form.errors)
+            return self.render_to_http_response(resp,status=400)
