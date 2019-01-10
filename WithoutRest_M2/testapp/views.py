@@ -85,3 +85,29 @@ class StudentCRUD_CBV(View,HttpResponseMixin,SerializeMixin):
         if form.errors:
             resp=json.dumps(form.errors)
             return self.render_to_http_response(resp,status=400)
+
+
+
+
+    def delete(self,request,*args,**kwargs):
+        data=request.body
+        valid_json=is_json(data)
+        if not valid_json:
+            resp=json.dumps({'msg':'Kindly Provide Valid JSON Data    Thank YOU !!1'})
+            return self.render_to_http_response(resp,status=400)
+        pdata=json.loads(data)
+        id=pdata.get('id',None)
+        if id is None:
+            resp=json.dumps({'msg':'ID is MANDATORY For Deletion !!!'})
+            return self.render_to_http_response(resp,status=400)
+        std=get_std_by_id(id)
+        if std is None:
+            resp=json.dumps({'msg':'No Record Found With Matched ID'})
+            return self.render_to_http_response(resp,status=400)
+        status,deleted_item = std.delete()
+        if status==1:
+            resp=json.dumps({'msg':'Record Deleted'})
+            return self.render_to_http_response(resp,status=400)
+        else:
+            resp=json.dumps({'msg':'SomeError Occured while deletion'})
+            return self.render_to_http_response(resp,status=500)

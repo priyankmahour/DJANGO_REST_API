@@ -40,4 +40,15 @@ def update_resourse(id=None):
     print(resp.status_code)
     print(resp.json())
 
-update_resourse(5) # id is mandatory
+#update_resourse(5) # id is mandatory
+
+
+
+def delete_resourse(id=None):
+    data={  'id':id,
+         }
+    resp=requests.delete(BASE_URL+ENDPOINT,data=json.dumps(data))
+    print(resp.status_code)
+    print(resp.json())
+
+delete_resourse(5) # id is mandatory
