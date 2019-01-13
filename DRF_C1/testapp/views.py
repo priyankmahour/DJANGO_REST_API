@@ -98,3 +98,29 @@ class EmployeeCRUDCBV(HttpResponseMixin,View):
         if my_serializer.errors:
             resp=JSONRenderer().render(my_serializer.errors)
             return self.render_to_http_response(resp,status=400)
+
+
+    def delete(self,request,*args,**kwargs):
+        data=request.body
+        valid_json=is_json(data)
+        if not valid_json:
+            msg={'msg':'Please Provide Valid Json'}
+            resp=JSONRenderer().render(msg)
+            return self.render_to_http_response(resp,status=400)
+        my_stream=io.BytesIO(data)
+        pdata=JSONParser().parse(my_stream)
+        id=pdata.get('id',None)
+        if id is None:
+            msg={'msg':'ID is mandatory for Deletion'}
+            resp=JSONRenderer().render(msg)
+            return self.render_to_http_response(resp,status=400)
+        emp=get_emp_by_id(id)
+        if emp is None:
+            msg={'msg':'No Matched Record Found'}
+            resp=JSONRenderer().render(msg)
+            return self.render_to_http_response(resp,status=400)
+        emp.delete()
+       # There is No Role Of Serializers in Deletion Of the Record
+        msg={'msg':'Resourse Deleted Successfully'}
+        resp=JSONRenderer().render(msg)
+        return self.render_to_http_response(resp,status=200)

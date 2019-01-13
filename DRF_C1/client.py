@@ -12,7 +12,7 @@ def get_resourse(id=None):
     print(resp.status_code)
     print(resp.json())
 
-get_resourse()
+#get_resourse()
 #get_resourse(1)
 
 def create_resourse():
@@ -43,4 +43,15 @@ def update_resourse(id):
     resp=requests.put(BASE_URL+ENDPOINT,data=json.dumps(data))
     print(resp.status_code)
     print(resp.json())
-update_resourse(12)
+#update_resourse(12)
+
+
+def delete_resourse(id):
+    data={
+          'id':id
+         }
+    resp=requests.delete(BASE_URL+ENDPOINT,data=json.dumps(data))
+    print(resp.status_code)
+    print(resp.json())
+
+delete_resourse(3)
