@@ -27,3 +27,20 @@ def create_resourse():
     print(resp.json())
 
 #create_resourse()
+
+
+def update_resourse(id):
+    # data={  'id':id,
+    #         'eno':100,
+    #         'ename':'sunny',
+    #         'esal':8000,
+    #         'eaddr':'Bihar'
+    #      }
+    data={  'id':id,
+            'eno':200,
+            'esal':9000
+         }
+    resp=requests.put(BASE_URL+ENDPOINT,data=json.dumps(data))
+    print(resp.status_code)
+    print(resp.json())
+update_resourse(12)
