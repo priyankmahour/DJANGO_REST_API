@@ -62,13 +62,11 @@ class EmployeeCRUDCBV(HttpResponseMixin,View):
             msg={'msg':'Resourse Created Successfully'}
             resp=JSONRenderer().render(msg)
             return self.render_to_http_response(resp,status=200)
-        if serializer.errors:  # Just like form.errors it performs basic validations since we are using serializers instead of forms.py and SerializerMixin Class
-            resp=JSONRenderer().render(serializer.errors)
+        if my_serializer.errors:  # Just like form.errors it performs basic validations since we are using serializers instead of forms.py and SerializerMixin Class
+            resp=JSONRenderer().render(my_serializer.errors)
             return self.render_to_http_response(resp,status=400)
 
     def put(self,request,*args,**kwargs):
-        # by default put method always expect complete data ie.. all the fields of the record
-        # if we want to provide ony partial update
         data=request.body
         valid_json=is_json(data)
         if not valid_json:
@@ -87,7 +85,9 @@ class EmployeeCRUDCBV(HttpResponseMixin,View):
             msg={'msg':'No Matched Record Found'}
             resp=JSONRenderer().render(msg)
             return self.render_to_http_response(resp,status=400)
-        my_serializer=EmployeeSerializer(emp,data=pdata,partial=True) # update pdata with emp instance and partial is for prtial updation
+        my_serializer=EmployeeSerializer(emp,data=pdata,partial=True)
+        # by default put method always expect complete data ie.. all the fields of the record
+        # update pdata with emp instance and partial=True is for prtial updation
         # earlier we were able to perform partial updated with put method because we were not using any Django_rest_framework serializers
         # we were performing every task manually
         if my_serializer.is_valid():
