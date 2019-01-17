@@ -37,8 +37,9 @@ def update_resourse(id):
     #         'eaddr':'Bihar'
     #      }
     data={  'id':id,
+            'ename':'sunny123', # providing ename and esal is necessary since we are performing vlidations on these
             'eno':400,
-            'esal':70001
+            'esal':90000
          }
     resp=requests.put(BASE_URL+ENDPOINT,data=json.dumps(data))
     print(resp.status_code)
@@ -54,4 +55,4 @@ def delete_resourse(id):
     print(resp.status_code)
     print(resp.json())
 
-#delete_resourse(3)
+#delete_resourse(10)
