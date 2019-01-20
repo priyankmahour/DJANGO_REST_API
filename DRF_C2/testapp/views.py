@@ -48,3 +48,15 @@ class TestViewSet(ViewSet):
             return Response({'msg':msg})
         else:
             return Response(my_serializer.errors,status=400)
+
+    def retrieve(self,request,pk=None):
+        return Response({'msg':'This is from RETRIVE method of ViewSet'})
+
+    def update(self,request,pk=None):
+        return Response({'msg':'This is from UPDATE method of ViewSet'})
+
+    def partial_update(self,request,pk=None):
+        return Response({'msg':'This is from PARTIAL_UPDATE method of ViewSet'})
+
+    def destroy(self,request,pk=None):
+        return Response({'msg':'This is from DESTROY method of ViewSet'})
