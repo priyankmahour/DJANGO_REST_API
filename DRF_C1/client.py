@@ -17,16 +17,16 @@ def get_resourse(id=None):
 
 def create_resourse():
     data={
-            'eno':300,
-            'ename':'Priyank',
-            'esal':4000,
+            'eno':800,
+            'ename':'mayank',
+            'esal':8000,
             'eaddr':'UP'
          }
     resp=requests.post(BASE_URL+ENDPOINT,data=json.dumps(data))
     print(resp.status_code)
     print(resp.json())
 
-#create_resourse()
+create_resourse()
 
 
 def update_resourse(id):
@@ -44,7 +44,7 @@ def update_resourse(id):
     resp=requests.put(BASE_URL+ENDPOINT,data=json.dumps(data))
     print(resp.status_code)
     print(resp.json())
-update_resourse(11)
+#update_resourse(11)
 
 
 def delete_resourse(id):

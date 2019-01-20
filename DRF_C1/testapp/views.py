@@ -49,6 +49,7 @@ class EmployeeCRUDCBV(HttpResponseMixin,View):
 
     def post(self,request,*args,**kwargs):
         data=request.body
+        print(data)
         valid_json=is_json(data)
         if not valid_json:
             resp=json.dumps({'msg':'Kindly Provide Valid Json Data . Unable To proceed !!!'})
