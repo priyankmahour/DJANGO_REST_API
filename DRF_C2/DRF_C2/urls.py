@@ -13,11 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url,include
 from django.contrib import admin
 from testapp import views
 
+from rest_framework.routers import DefaultRouter
+router=DefaultRouter() # created DefaultRouter object
+router.register('test-view-set',views.TestViewSet,base_name='test-view-set') # registered our TestViewSet to DefaultRouter object
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'api/$',views.TestAPIView.as_view(),name="TestAPIView"),
+    #url(r'api/$',views.TestAPIView.as_view(),name="TestAPIView"),
+    url(r'',include(router.urls)), # confuguring router in utlpatterns
 ]
