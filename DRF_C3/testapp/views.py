@@ -17,8 +17,19 @@ from rest_framework.response import Response
 
 from rest_framework.generics import ListAPIView
 
+# class EmployeeListAPIView(ListAPIView):
+#     # queryset ans serializer_class are predefined DRF words
+#     queryset=Employee.objects.all()
+#     serializer_class=EmployeeSerializer
+#     # returning a response is also optional in ListAPIView
+
+
 class EmployeeListAPIView(ListAPIView):
-    # queryset ans serializer_class are predefined DRF words
-    queryset=Employee.objects.all()
+    #queryset=Employee.objects.all()
     serializer_class=EmployeeSerializer
-    # returning a response is also optional in ListAPIView
+    def get_queryset(self):
+        qs=Employee.objects.all()
+        name=self.request.GET.get('ename')
+        if name is not None:
+            qs=qs.filter(ename__icontains=name)
+        return (qs)
