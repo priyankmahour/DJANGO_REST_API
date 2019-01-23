@@ -15,7 +15,7 @@ from rest_framework.response import Response
 #         # Response class is responsible for converting dict (my_serializer.data)  to JSON data
 #         return Response(my_serializer.data)
 
-from rest_framework.generics import ListAPIView,CreateAPIView
+from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView
 
 # class EmployeeListAPIView(ListAPIView):
 #     # queryset ans serializer_class are predefined DRF words
@@ -38,4 +38,8 @@ class EmployeeCreateAPIView(CreateAPIView):
     queryset=Employee.objects.all()
     serializer_class=EmployeeSerializer
 
-    
+
+class EmployeeRetrieveAPIView(RetrieveAPIView):
+    queryset=Employee.objects.all()
+    serializer_class=EmployeeSerializer
+    lookup_field='id'

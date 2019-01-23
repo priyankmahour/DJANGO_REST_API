@@ -20,5 +20,6 @@ from testapp import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^api/',views.EmployeeListAPIView.as_view(),name="EmployeeListAPIView"),
-    url(r'^api/',views.EmployeeCreateAPIView.as_view(),name="EmployeeCreateAPIView"),
+    #url(r'^api/',views.EmployeeCreateAPIView.as_view(),name="EmployeeCreateAPIView"),
+    url(r'^api/(?P<id>\d+)/$',views.EmployeeRetrieveAPIView.as_view(),name="EmployeeRetrieveAPIView"),
 ]
