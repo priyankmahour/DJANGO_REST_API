@@ -19,5 +19,6 @@ from testapp import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/',views.EmployeeListAPIView.as_view(),name="EmployeeListAPIView"),
+    #url(r'^api/',views.EmployeeListAPIView.as_view(),name="EmployeeListAPIView"),
+    url(r'^api/',views.EmployeeCreateAPIView.as_view(),name="EmployeeCreateAPIView"),
 ]
