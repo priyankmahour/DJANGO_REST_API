@@ -26,5 +26,6 @@ urlpatterns = [
     #url(r'^api/(?P<id>\d+)/$',views.EmployeeDestroyAPIView.as_view(),name="EmployeeDestroyAPIView"),
     #url(r'^api/$',views.EmployeeListCreateAPIView.as_view(),name="EmployeeListCreateAPIView"),
     #url(r'^api/(?P<id>\d+)/$',views.EmployeeRetrieveUpdateAPIView.as_view(),name="EmployeeRetrieveUpdateAPIView"),
-    url(r'^api/(?P<id>\d+)/$',views.EmployeeRetrieveDestroyAPIView.as_view(),name="EmployeeRetrieveUpdateAPIView"),
+    #url(r'^api/(?P<id>\d+)/$',views.EmployeeRetrieveDestroyAPIView.as_view(),name="EmployeeRetrieveDestroyAPIView"),
+    url(r'^api/(?P<id>\d+)/$',views.EmployeeRetrieveUpdateDestroyAPIView.as_view(),name="EmployeeRetrieveUpdateDestroyAPIView"),
 ]
