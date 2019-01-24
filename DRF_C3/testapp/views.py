@@ -59,13 +59,13 @@ from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,Up
 #     serializer_class=EmployeeSerializer
 #     lookup_field='id'
 #
-
-class EmployeeListCreateAPIView(ListCreateAPIView):
-    queryset=Employee.objects.all()
-    serializer_class=EmployeeSerializer
-    lookup_field='id'
-    # url pattern does not require id
-    # bug fixed
+#
+# class EmployeeListCreateAPIView(ListCreateAPIView):
+#     queryset=Employee.objects.all()
+#     serializer_class=EmployeeSerializer
+#     lookup_field='id'
+#     # url pattern does not require id
+#     # bug fixed
 
 # class EmployeeRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 #     queryset=Employee.objects.all()
@@ -81,8 +81,34 @@ class EmployeeListCreateAPIView(ListCreateAPIView):
 #
 #
 #
+#
+# class EmployeeRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+#     queryset=Employee.objects.all()
+#     serializer_class=EmployeeSerializer
+#     lookup_field='id'
 
-class EmployeeRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    queryset=Employee.objects.all()
-    serializer_class=EmployeeSerializer
-    lookup_field='id'
+
+
+
+
+
+#--------------------------------
+# Implementing CRUD using Mixins
+#--------------------------------
+from rest_framework.mixins import ListModelMixin,CreateModelMixin,UpdateModelMixin,RetrieveModelMixin,DestroyModelMixin
+
+
+class EmployeeListCreateModelMixin(ListAPIView,CreateModelMixin):
+      queryset=Employee.objects.all()
+      serializer_class=EmployeeSerializer
+      def post(self,request,*args,**kwargs):
+          return self.create(request,*args,**kwargs)
+
+      #
+      # class EmployeeListCreateModelMixin(CreateAPIView,ListModelMixin):
+      #        queryset=Employee.objects.all()
+      #        serializer_class=EmployeeSerializer
+      #        def get(self,request,*args,**kwargs):
+      #            return self.list(request,*args,**kwargs)
+      #
+      # we could also use this for EmployeeListCreateModelMixin
