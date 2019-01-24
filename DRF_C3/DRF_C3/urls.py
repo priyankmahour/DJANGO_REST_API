@@ -29,4 +29,5 @@ urlpatterns = [
     #url(r'^api/(?P<id>\d+)/$',views.EmployeeRetrieveDestroyAPIView.as_view(),name="EmployeeRetrieveDestroyAPIView"),
     #url(r'^api/(?P<id>\d+)/$',views.EmployeeRetrieveUpdateDestroyAPIView.as_view(),name="EmployeeRetrieveUpdateDestroyAPIView"),
     url(r'^api/$',views.EmployeeListCreateModelMixin.as_view(),name="EmployeeListCreateModelMixin"),
+    url(r'^api/(?P<id>\d+)/$',views.EmployeeRetrieveUpdateDestroyModelMixin.as_view(),name="EmployeeRetrieveUpdateDestroyModelMixin"),
 ]

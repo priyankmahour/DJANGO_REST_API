@@ -112,3 +112,16 @@ class EmployeeListCreateModelMixin(ListAPIView,CreateModelMixin):
       #            return self.list(request,*args,**kwargs)
       #
       # we could also use this for EmployeeListCreateModelMixin
+
+
+
+class EmployeeRetrieveUpdateDestroyModelMixin(RetrieveAPIView,UpdateModelMixin,RetrieveModelMixin,DestroyModelMixin):
+      queryset=Employee.objects.all()
+      serializer_class=EmployeeSerializer
+      lookup_field='id'
+      def put(self,request,*args,**kwargs):
+          return self.update(request,*args,**kwargs)
+      def patch(self,request,*args,**kwargs):
+          return self.partial_update(request,*args,**kwargs)
+      def delete(self,request,*args,**kwargs):
+          return self.destroy(request,*args,**kwargs)
