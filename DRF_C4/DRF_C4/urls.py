@@ -19,8 +19,11 @@ from testapp import views
 
 from rest_framework.routers import DefaultRouter
 router=DefaultRouter()
-router.register('api',views.EmployeeCRUDCBV,base_name='api')      # this represents  http://127.0.0.1:8000/api/  
-# base_name is optional in ModelViewSet but mandatory in normal ViewSet
+# router.register('api',views.EmployeeCRUDCBV,base_name='api')      # this represents  http://127.0.0.1:8000/api/
+# # base_name is optional in ModelViewSet but mandatory in normal ViewSet
+
+router.register('api',views.My_EmployeeCRUDCBV,base_name='api')
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
