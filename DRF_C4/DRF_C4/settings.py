@@ -72,6 +72,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'DRF_C4.wsgi.application'
 
+REST_FRAMEWORK={
+                    'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication',),
+                    'DEFAULT_AUTHORIZATION_CLASSES':('rest_framework.permissions.IsAuthenticated',),
+
+
+               }
+
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases

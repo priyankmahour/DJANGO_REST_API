@@ -12,8 +12,8 @@ class EmployeeCRUDCBV(ModelViewSet):
     # ModelViewSet because it is a viewset on models
     queryset=Employee.objects.all()
     serializer_class=EmployeeSerializer
-    authentication_classes=[TokenAuthentication,]
-    permission_classes=[IsAuthenticated,]
+    # authentication_classes=[TokenAuthentication,]
+    # permission_classes=[IsAuthenticated,]
 
 
 
