@@ -19,13 +19,17 @@ from testapp import views
 
 from rest_framework.routers import DefaultRouter
 router=DefaultRouter()
-# router.register('api',views.EmployeeCRUDCBV,base_name='api')      # this represents  http://127.0.0.1:8000/api/
-# # base_name is optional in ModelViewSet but mandatory in normal ViewSet
+router.register('api',views.EmployeeCRUDCBV,base_name='api')      # this represents  http://127.0.0.1:8000/api/
+# base_name is optional in ModelViewSet but mandatory in normal ViewSet
 
-router.register('api',views.My_EmployeeCRUDCBV,base_name='api')
+# router.register('api',views.My_EmployeeCRUDCBV,base_name='api')
 
+
+from rest_framework.authtoken import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'',include(router.urls)),    # this URL pattern is for     http://127.0.0.1:8000/
+
+    url(r'^get-api-token/',views.obtain_auth_token,name="get-api-token"),
 ]
