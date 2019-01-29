@@ -42,6 +42,17 @@ INSTALLED_APPS = [
     'testapp',
 ]
 
+
+
+REST_FRAMEWORK={
+                    'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication',),
+                    'DEFAULT_PERMISSION_CLASSES':('rest_framework.permissions.IsAuthenticated',),
+
+
+               }
+
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -71,13 +82,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'DRF_C4.wsgi.application'
-
-REST_FRAMEWORK={
-                    'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication',),
-                    'DEFAULT_AUTHORIZATION_CLASSES':('rest_framework.permissions.IsAuthenticated',),
-
-
-               }
 
 
 # Database
