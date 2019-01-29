@@ -5,15 +5,19 @@ from rest_framework.viewsets import ModelViewSet,ReadOnlyModelViewSet,GenericVie
 from .serializers import EmployeeSerializer
 
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import  AllowAny
+from rest_framework.permissions import  AllowAny,IsAuthenticated
 
+
+from .permissions import IsReadOnly,Is_get_or_patch,sunny_permission
 
 class EmployeeCRUDCBV(ModelViewSet):
     # ModelViewSet because it is a viewset on models
     queryset=Employee.objects.all()
     serializer_class=EmployeeSerializer
-    #authentication_classes=[TokenAuthentication,]
-    permission_classes=[AllowAny,]
+    authentication_classes=[TokenAuthentication,]
+    #permission_classes=[IsReadOnly,IsAuthenticated]
+    #permission_classes=[Is_get_or_patch,IsAuthenticated]
+    permission_classes=[sunny_permission,IsAuthenticated]
 
 
 
