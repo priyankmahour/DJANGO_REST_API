@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'kc$-p0et65q))f75#uugb4#02yo0gl&$m%-9$umuj3y)ckihf!'
+SECRET_KEY = 'kc$-p0et65q))f75#uugb4#02yo0gl&$m%-9$uuj3y)ckihf!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]  # we have to give allowed HOST if DEBUG is False
 
 
 # Application definition
@@ -45,7 +45,8 @@ INSTALLED_APPS = [
 
 
 REST_FRAMEWORK={
-                    'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication',),
+                    #'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication',),
+                    'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework_jwt.authentication.JSONWebTokenAuthentication',),
                     'DEFAULT_PERMISSION_CLASSES':('rest_framework.permissions.IsAuthenticated',),
 
 
@@ -132,3 +133,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+import datetime
+
+JWT_AUTH={
+          'JWT_ALLOW_REFRESH':True,  # the default value is false ... we require to set to True for refreshing token
+          'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=600),
+          'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+          'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}

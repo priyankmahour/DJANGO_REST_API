@@ -10,15 +10,18 @@ from rest_framework.permissions import  AllowAny,IsAuthenticated
 
 from .permissions import IsReadOnly,Is_get_or_patch,sunny_permission
 
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
 class EmployeeCRUDCBV(ModelViewSet):
     # ModelViewSet because it is a viewset on models
     queryset=Employee.objects.all()
     serializer_class=EmployeeSerializer
-    authentication_classes=[TokenAuthentication,]
+    #authentication_classes=[TokenAuthentication,]
     #permission_classes=[IsReadOnly,IsAuthenticated]
     #permission_classes=[Is_get_or_patch,IsAuthenticated]
-    permission_classes=[sunny_permission,IsAuthenticated]
-
+    #permission_classes=[sunny_permission,IsAuthenticated]
+    authentication_classes=[JSONWebTokenAuthentication,]
+    permission_classes=[IsAuthenticated,]
 
 
 

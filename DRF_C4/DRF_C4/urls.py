@@ -27,9 +27,23 @@ router.register('api',views.EmployeeCRUDCBV,base_name='api')      # this represe
 
 from rest_framework.authtoken import views
 
+# even though we didnt add rest_framework_jwt app to installed apps ..... we can use it after pip install djangorestframework_jwt
+from rest_framework_jwt.views  import obtain_jwt_token,refresh_jwt_token,verify_jwt_token
+# these are the function based view inside rest_framework_jwt app views.py
+#  which is the responsible to generate jwt toke based on our provided credentials, refresh jwt_token and verify jwt token
+#
+
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
     url(r'',include(router.urls)),    # this URL pattern is for     http://127.0.0.1:8000/
 
+    # register view for TokenAuthentication
     url(r'^get-api-token/',views.obtain_auth_token,name="get-api-token"),
+
+    # registring view for JWT Authentication .....
+    url(r'^auth-jwt/',obtain_jwt_token,name="auth-jwt"),
+    url(r'^auth-jwt-refresh/',refresh_jwt_token,name="auth-jwt-refresh"),
+    url(r'^auth-jwt-verify/',verify_jwt_token,name="auth-jwt-verify"),
 ]
