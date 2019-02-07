@@ -1,4 +1,4 @@
-from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
+from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination,CursorPagination
 # Better to create a child class of   PageNumberPagination class with custom our own custom properties for enabling pagenation Locally
 class MyPagination(PageNumberPagination):
     page_size=5
@@ -26,3 +26,15 @@ class MyPagination2(LimitOffsetPagination):
     offset_query_param='myoffset'
     max_limit=20
     # http://127.0.0.1:8000/list-api/?mylimit=25&myoffset=40     will givr 41 to 60
+
+
+
+class MyPagination3(CursorPagination):
+    pass
+    # we get error ....   Cannot resolve keyword 'created' into field. Choices are: eaddr, ename, eno, esal, id
+    # by defalut it is expecting 'created' field
+    # ordering='-created'  is the defaulyt value
+    # so we require to specify our own ordering for solving this error
+    # ordering='esal'   for ascending
+    page_size=5
+    ordering='-esal'
