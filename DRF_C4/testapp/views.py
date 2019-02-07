@@ -22,8 +22,8 @@ class EmployeeCRUDCBV(ModelViewSet):
     #permission_classes=[IsReadOnly,IsAuthenticated]
     #permission_classes=[Is_get_or_patch,IsAuthenticated]
     #permission_classes=[sunny_permission,IsAuthenticated]
-    #authentication_classes=[JSONWebTokenAuthentication,]
-    authentication_classes=[CustomAuthentication,]
+    authentication_classes=[JSONWebTokenAuthentication,]
+    #authentication_classes=[CustomAuthentication,]
     permission_classes=[IsAuthenticated,]
 
 
