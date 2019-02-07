@@ -6,9 +6,14 @@ from rest_framework.generics import ListAPIView
 from .serializers import EmployeeSerializer
 from .models import Employee
 
+from .pagination import MyPagination   
+   
 class EmployeeListView(ListAPIView):  # pagination concept is only applicable for LIST Operation because all record will be displayed in this operation only
     queryset=Employee.objects.all()
     serializer_class=EmployeeSerializer
+    #pagination_class=PageNumberPagination
+    pagination_class=MyPagination
+    
        
 
 
