@@ -14,9 +14,19 @@ class EmployeeListView(ListAPIView):  # pagination concept is only applicable fo
     #pagination_class=PageNumberPagination
     #pagination_class=MyPagination2
     #pagination_class=MyPagination3
-    def get_queryset(self):
-        qs=Employee.objects.all()
-        name=self.request.GET.get('ename')
-        if name is not None:                      # line 20 and 21 will only execute when ename is not none ie... ename is passes as query param
-            qs=qs.filter(ename__icontains=name)
-        return qs
+    # def get_queryset(self):
+    #     qs=Employee.objects.all()
+    #     name=self.request.GET.get('ename')
+    #     if name is not None:                      # line 20 and 21 will only execute when ename is not none ie... ename is passes as query param
+    #         qs=qs.filter(ename__icontains=name)
+    #     return qs
+    #search_fields=('ename',)   only ename will be searched for our input
+    #search_fields=('esal','eno')  if 'esal' or 'eno' or both "esal and eno"  contains our input....  those matched  will be displayed
+    # if pagenation is applied these filtered records will be displayed according to our pagination
+
+    #search_fields=('^esal',)
+    #search_fields=('=eno',)
+    search_fields=('ename',)
+    ordering_fields=('eno','esal',) # default value is    '__all'
+    # http://127.0.0.1:8000/list-api/?myordering=-esal&mysearch=R
+    # will return all records where ename contains 'R' in descending order of esal
