@@ -18,11 +18,18 @@ from django.contrib import admin
 
 from testapp import views
 
-
+from rest_framework_jwt.views  import obtain_jwt_token,refresh_jwt_token,verify_jwt_token
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^author/$',views.Authors_CR.as_view(),name="Authors_CR"),
     url(r'^author/(?P<pk>\d+)/$',views.Authors_UD.as_view(),name="Authors_UD"),
     url(r'^book/$',views.Books_CR.as_view(),name="Books_CR"),
     url(r'^book/(?P<pk>\d+)/$',views.Books_UD.as_view(),name="Books_UD"),
+
+    # registring view for JWT Authentication .....
+    url(r'^auth-jwt/',obtain_jwt_token,name="auth-jwt"),
+    url(r'^auth-jwt-refresh/',refresh_jwt_token,name="auth-jwt-refresh"),
+    url(r'^auth-jwt-verify/',verify_jwt_token,name="auth-jwt-verify"),
+
+
 ]

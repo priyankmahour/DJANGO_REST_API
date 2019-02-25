@@ -25,7 +25,7 @@ SECRET_KEY = 'oka68mf$g7ylb7@qiuffu-0ea2(z#kr5mo1a$_zit7xr2-bfad'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.43.125"]
+ALLOWED_HOSTS = ["192.168.43.125","127.0.0.1"]
 
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -45,9 +45,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'testapp',
 ]
+
+REST_FRAMEWORK={
+                    #'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication',),
+                    'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework_jwt.authentication.JSONWebTokenAuthentication',),
+                    'DEFAULT_PERMISSION_CLASSES':('rest_framework.permissions.IsAuthenticated',),
+
+
+               }
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -131,3 +143,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
+import datetime
+
+JWT_AUTH={
+          'JWT_ALLOW_REFRESH':True,  # the default value is false ... we require to set to True for refreshing token
+          'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=600),
+          'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+          #'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}
